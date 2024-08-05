@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Search</title>
+    <script>
+        async function searchDocument() {
+            let query = document.getElementById("query-input").value;
+
+            // Using fetch API to POST the request
+            let response = await fetch("/search", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "query": query
+                })
+            });
+
+            let result = await response.json();
+
+            // Displaying the result in the webpage
+            document.getElementById("result").innerText = JSON.stringify(result, null, 2);
+        }
+    </script>
+</head>
+
+<body>
+    <h2>Document Search</h2>
+
+    <label for="query-input">Enter your search query:</label>
+    <input type="text" id="query-input" placeholder="Search...">
+
+    <button onclick="searchDocument()">Search</button>
+
+    <pre id="result"></pre>
+</body>
+
+</html>
